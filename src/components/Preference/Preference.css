@@ -8,6 +8,11 @@
     margin: auto;
 }
 
+.filter button{
+    margin-top: 3px;
+    margin-right: 3px;
+}
+
 .filter_delete_button{
     margin-left: auto;
     min-width: 55px;

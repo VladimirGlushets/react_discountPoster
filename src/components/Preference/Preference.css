@@ -7,7 +7,7 @@
 
 .filter p {
   margin: auto;
-  width: 75%;
+  width: 70%;
 }
 
 .filter button {
@@ -26,5 +26,5 @@
 .filter_edit_button {
   margin-left: auto;
   min-width: 55px;
-  width: 15%;
+  width: 20%;
 }

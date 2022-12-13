@@ -1,19 +1,30 @@
-.filter{
-    /* margin: 5px; */
-    display: flex;
-    max-height: 45px;
+.filter {
+  /* margin: 5px; */
+  display: flex;
+  flex-direction: row;
+  max-height: 45px;
 }
 
 .filter p {
-    margin: auto;
+  margin: auto;
+  width: 75%;
 }
 
-.filter button{
-    margin-top: 3px;
-    margin-right: 3px;
+.filter button {
+  margin-top: 3px;
+  margin-right: 5px;
 }
 
-.filter_delete_button{
-    margin-left: auto;
-    min-width: 55px;
+.filter_delete_button {
+  margin-left: auto;
+  width: 55px;
+  min-width: 55px;
+  background-color: #e8aeae;
+  width: 10%;
+}
+
+.filter_edit_button {
+  margin-left: auto;
+  min-width: 55px;
+  width: 15%;
 }

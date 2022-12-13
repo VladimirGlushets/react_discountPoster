@@ -1,17 +1,17 @@
 import React from "react";
-import "./MyCategories.css";
+import "./NewPreference.css";
 
 // const tg = window.Telegram.WebApp;
 // const defaultUserId = 558969327;
 
-function MyCategories({title}) {
+function NewPreference({title}) {
   return (
     <>
-      <div className="my_categories">
+      <div className="new_category">
         {title}
       </div>
     </>
   );
 }
 
-export default MyCategories;
+export default NewPreference;

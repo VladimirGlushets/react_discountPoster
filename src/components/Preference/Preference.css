@@ -1,0 +1,14 @@
+.filter{
+    margin: 5px;
+    display: flex;
+    max-height: 45px;
+}
+
+.filter p {
+    margin: auto;
+}
+
+.filter_delete_button{
+    margin-left: auto;
+    min-width: 55px;
+}

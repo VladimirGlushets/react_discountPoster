@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import MyCategories from "./components/MyCategories/MyCategories";
-import NewCategory from "./components/NewCategory/NewCategory";
+import MyPreferences from "./components/MyPreferences/MyPreferences";
+import NewPreference from "./components/NewPreference/NewPreference";
 
 
 function App() {
@@ -10,10 +10,10 @@ function App() {
     <div className="App">
       <header className="App-header">
       <Routes>
-          <Route index element={<MyCategories title="My categories" />} />
+          <Route index element={<MyPreferences title="My categories" />} />
           <Route
             path={"newcategory"}
-            element={<NewCategory title="New category" />}
+            element={<NewPreference title="New category" />}
           />
         </Routes>
       </header>

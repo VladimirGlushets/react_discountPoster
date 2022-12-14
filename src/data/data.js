@@ -37,3 +37,7 @@ export async function getMyPreferencies(userId) {
 export async function deleteFilter(userId, data) {
   console.log("" + userId + data);
 }
+
+export async function upsertPreference(userId, data) {
+  console.log(data);
+}

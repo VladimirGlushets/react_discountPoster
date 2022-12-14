@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import DetailsItem from "../DetailsItem/DetailsItem";
 import "./PreferenceDetails.css";
+
+const { upsertPreference } = require("../../data/data");
 
 const tg = window.Telegram.WebApp;
 
@@ -15,6 +17,18 @@ function PreferenceDetails({ title }) {
   const [saveVisible, setSaveVisible] = useState(false);
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [validationError, setValidationError] = useState("");
+  const [userId, setUserId] = useState();
+
+  const defaultUserId = 558969327;  
+  
+  useEffect(() => {
+    tg.ready();
+    if (tg.initDataUnsafe.user) {
+      setUserId(tg.initDataUnsafe.user.id);
+    } else {
+      setUserId(defaultUserId);
+    }
+  }, []); 
 
   const onPrefChange = (pref) => {
     if (JSON.stringify(preference) !== JSON.stringify(pref)) {
@@ -111,17 +125,16 @@ function PreferenceDetails({ title }) {
 
   const showPopup = (title, message) => {
     if (tg.initDataUnsafe.user) {
-      tg.showPopup(
-        { title: title, message: message },
-        navigate("/")
-      );
+      tg.showPopup({ title: title, message: message }, navigate("/"));
     }
   };
 
-const onSave = ()=>{
-  showPopup("Изменения сохранены", "Saved")
-  setSaveVisible(false);
-};
+  const onSave = async () => {
+    await upsertPreference(userId, preferenceDetails);
+
+    showPopup("Изменения сохранены", "Saved");
+    setSaveVisible(false);
+  };
 
   return (
     <>
@@ -157,7 +170,15 @@ const onSave = ()=>{
               ) : (
                 <></>
               )}
-              {saveVisible ? <Button title={"Save changes"} onClick={onSave} isDisabled={saveDisabled}/> : <></>}
+              {saveVisible ? (
+                <Button
+                  title={"Save changes"}
+                  onClick={onSave}
+                  isDisabled={saveDisabled}
+                />
+              ) : (
+                <></>
+              )}
             </section>
           </>
         )}

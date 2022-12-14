@@ -1,0 +1,20 @@
+.preference-details-item {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+  
+  .item-label{
+      width: 80%;
+      text-align: start;
+      margin-left: 5px;
+  }
+    
+  .item-input{
+      padding-right: 5px;
+      padding-left: 5px;
+      width: 20%;
+      margin-left: auto;
+      text-align: end;
+  }

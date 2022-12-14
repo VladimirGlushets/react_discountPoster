@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import MyPreferences from "./components/MyPreferences/MyPreferences";
 import NewPreference from "./components/NewPreference/NewPreference";
+import PreferenceDetails from './components/PreferenceDetails/PreferenceDetails';
 
 
 function App() {
@@ -14,6 +15,10 @@ function App() {
           <Route
             path={"newcategory"}
             element={<NewPreference title="New category" />}
+          />
+          <Route
+            path={"details"}
+            element={<PreferenceDetails title="Preference details" />}
           />
         </Routes>
       </header>

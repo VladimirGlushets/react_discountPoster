@@ -15,11 +15,17 @@
   margin-right: 5px;
 }
 
+.filter_detail_button{
+  margin: auto;
+  width: 70%;
+  background-color: #ffffff;
+}
+
 .filter_delete_button {
   margin-left: auto;
   width: 55px;
   min-width: 55px;
-  background-color: #e8aeae;
+  background-color: #ec7373;
   width: 10%;
 }
 

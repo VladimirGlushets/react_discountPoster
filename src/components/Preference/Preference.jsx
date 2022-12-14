@@ -3,11 +3,14 @@ import Button from "../Button/Button";
 import "./Preference.css";
 
 function Preference({ preference, onDelete }) {
-  let desc = "" + preference.categoryId;
   return (
     <>
       <div className="filter">
-        <p>{desc}</p>
+      <Button
+          title={preference.categoryName}
+          onClick={() => onDelete(preference)}
+          className={"filter_detail_button"}
+        />
         <Button
           title={"Edit"}
           onClick={() => onDelete(preference)}

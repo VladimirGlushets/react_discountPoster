@@ -6,6 +6,7 @@ export async function getMyPreferencies(userId) {
   return [
     {
       categoryId: 123456,
+      categoryName: "Хобби и рукоделие",
       minDiscount: 50,
       minRating: 4.6,
       priceFrom: 1,
@@ -13,6 +14,7 @@ export async function getMyPreferencies(userId) {
     },
     {
       categoryId: 334422,
+      categoryName: "Рукоделие",
       minDiscount: 50,
       minRating: 4.6,
       priceFrom: 1,

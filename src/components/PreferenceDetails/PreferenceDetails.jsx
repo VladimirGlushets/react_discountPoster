@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import DetailsItem from "../DetailsItem/DetailsItem";
 import "./PreferenceDetails.css";
 
+const tg = window.Telegram.WebApp;
+
 function PreferenceDetails({ title }) {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const { preference } = state; // Read values passed on state
 
@@ -106,8 +109,18 @@ function PreferenceDetails({ title }) {
     onPrefChange(pref);
   };
 
+  const showPopup = (title, message) => {
+    if (tg.initDataUnsafe.user) {
+      tg.showPopup(
+        { title: title, message: message },
+        navigate("/")
+      );
+    }
+  };
+
 const onSave = ()=>{
-  debugger;
+  showPopup("Изменения сохранены", "Saved")
+  setSaveVisible(false);
 };
 
   return (

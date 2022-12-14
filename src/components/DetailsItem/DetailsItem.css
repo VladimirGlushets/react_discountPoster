@@ -1,20 +1,21 @@
 .preference-details-item {
-    display: flex;
-    flex-direction: row;
-    margin-top: 5px;
-    margin-right: 5px;
-  }
-  
-  .item-label{
-      width: 80%;
-      text-align: start;
-      margin-left: 5px;
-  }
-    
-  .item-input{
-      padding-right: 5px;
-      padding-left: 5px;
-      width: 20%;
-      margin-left: auto;
-      text-align: end;
-  }
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.item-label {
+  width: 80%;
+  margin-left: 5px;
+  min-height: 40px;
+  line-height: 40px;
+  text-align: left;
+}
+
+.item-input {
+  padding-right: 5px;
+  padding-left: 5px;
+  width: 20%;
+  margin-left: auto;
+  text-align: end;
+}

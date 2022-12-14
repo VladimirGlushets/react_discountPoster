@@ -8,12 +8,13 @@ function DetailsItem({ label, value, onChange }) {
         <div className="item-label">{label}</div>
         <input
           className="item-input"
-          type="text"
+          type="number"
           id={label}
           name={label}
           defaultValue={value}
           onChange={onChange}
-        />        
+          min="0"
+        />
       </div>
     </>
   );

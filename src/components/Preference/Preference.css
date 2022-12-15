@@ -1,8 +1,9 @@
 .filter {
-  /* margin: 5px; */
   display: flex;
   flex-direction: row;
   max-height: 45px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .filter p {

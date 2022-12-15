@@ -3,4 +3,6 @@
 
 .validation-error{
     color: brown;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

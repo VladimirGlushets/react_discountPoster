@@ -1,0 +1,15 @@
+.mainmenu {
+}
+
+.mainmenu-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  max-height: 45px;
+  margin-top: 10px;
+  margin-bottom: 10px;  
+}
+
+.mainmenu-item button{
+    min-width: 250px;
+}

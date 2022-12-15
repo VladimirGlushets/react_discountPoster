@@ -1,12 +1,27 @@
 trigger:
   - main
+
 pool:
   vmImage: ubuntu-latest
+
 steps:
   - checkout: self
     submodules: true
-  - task: AzureStaticWebApp@0
+  - task: NodeTool@0
+    displayName: Build
+    inputs:    
+      command: 'npm run build'
+
+  - task: ArchiveFiles@1
+    displayName: Archive
     inputs:
-      app_location: '/'
-      output_location: 'build'
-      azure_static_web_apps_api_token: $(deployment_token)
+      rootFolderOrFile: '$(Build.BinariesDirectory)/build'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      replaceExistingArchive: true
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'

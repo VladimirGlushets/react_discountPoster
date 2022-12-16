@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Routes>
-          <Route index element={<MainMenu title={process.env.REACT_APP_API_KEY} />} />
+          <Route index element={<MainMenu title={process.env.REACT_APP_MAIN} />} />
           <Route
             path={"newcategory"}
             element={<NewPreference title="Выберите группу категорий" />}

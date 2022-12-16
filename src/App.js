@@ -7,6 +7,8 @@ import NewPreference from "./components/NewPreference/NewPreference";
 import PreferenceDetails from "./components/PreferenceDetails/PreferenceDetails";
 
 function App() {
+  console.log(process.env);
+
   return (
     <div className="App">
       <header className="App-header">

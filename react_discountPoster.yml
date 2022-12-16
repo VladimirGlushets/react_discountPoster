@@ -17,7 +17,7 @@ steps:
 
 - script: |
     npm install
-    NODE_ENV=staging npm run build
+    npm run build
   displayName: 'npm install and build'
 
 - task: CopyFiles@2

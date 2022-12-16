@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
+import NewPreference from "../NewPreference/NewPreference";
 import "./MainMenu.css";
 
 const { getMyPreferencies } = require("../../data/data");
@@ -9,7 +10,7 @@ const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
 
 function MainMenu({ title }) {
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const [myCategories, setMyCategories] = useState([]);
 
@@ -42,9 +43,8 @@ function MainMenu({ title }) {
     ? "Мои категории (" + myCategories.length + ")"
     : "Мои категории";
 
-  return (
-    <div className="mainmenu">
-      <h1>{title}</h1>
+  const mainMenuDom = (
+    <>
       <div className="mainmenu-item">
         <Button title={myCategoriesTitle} onClick={myCategoriesOnClick} />
       </div>
@@ -52,6 +52,17 @@ function MainMenu({ title }) {
       <div className="mainmenu-item">
         <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
       </div>
+    </>
+  );
+
+  return (
+    <div className="mainmenu">
+      <h1>{title}</h1>
+      {myCategories.length ? (
+        mainMenuDom
+      ) : (
+        <NewPreference title="New category" />
+      )}
     </div>
   );
 }

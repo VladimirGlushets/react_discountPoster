@@ -1,2 +1,5 @@
-.new_category{
+.new_category button{
+    min-width: 350px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

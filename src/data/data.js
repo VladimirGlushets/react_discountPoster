@@ -56,6 +56,12 @@ export async function deleteFilter(userId, data) {
 
 export async function upsertPreference(userId, data) {
   console.log(data);
+  // categoryId: 3345522,
+  //   categoryName: "Телефоны",
+  //   minDiscount: 50,
+  //   minRating: 4.6,
+  //   priceFrom: 1,
+  //   priceTo: 5,
 }
 
 export async function getPreference(userId, categoryId) {
@@ -67,4 +73,59 @@ export async function getPreference(userId, categoryId) {
     priceFrom: 1,
     priceTo: 5,
   };
+}
+
+export async function getAllGroups() {
+  return [
+    {
+      groupId: 202000054,
+      icon: "📱",
+      displayName: "Мобильные телефоны и аксессуары",
+    },
+    {
+      groupId: 202004207,
+      icon: "🍽",
+      displayName: "Кухня, столовая и бар",
+    },
+    {
+      groupId: 202040075,
+      icon: "🪢",
+      displayName: "Хобби и рукоделие",
+    },
+  ];
+}
+
+export async function getAllCategoriesForGroup(groupId) {
+  return [
+    {
+      categoryId: 202000054,
+      icon: "🍽",
+      displayName: "Смартфоны",
+    },
+    {
+      categoryId: 202004207,
+      icon: "🍽",
+      displayName: "Носимые устройства",
+    },
+    {
+      categoryId: 202040075,
+      icon: "🍽",
+      displayName: "Наушники и гарнитуры",
+    },
+    {
+      categoryId: 202060849,
+      icon: "🍽",
+      displayName: "Чехлы для смартфонов",
+    },
+    {
+      categoryId: 202004969,
+      icon: "🍽",
+      displayName: "Стёкла и плёнки для телефонов",
+    },
+    {
+      categoryId: 202001970,
+      icon: "🍽",
+      displayName: "Кабели для мобильных телефонов",
+    },
+  ];
 }

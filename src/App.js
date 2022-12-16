@@ -14,7 +14,7 @@ function App() {
           <Route index element={<MainMenu title="Main menu" />} />
           <Route
             path={"newcategory"}
-            element={<NewPreference title="New category" />}
+            element={<NewPreference title="Выберите группу категорий" />}
           />
           <Route
             path={"details/:id"}

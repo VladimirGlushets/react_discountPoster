@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Preference from "../Preference/Preference";
 import "./MyPreferences.css";
 
@@ -10,11 +10,9 @@ const defaultUserId = 558969327;
 
 function MyPreferences({ title }) {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const { myCategories } = state; // Read values passed on state
 
-  let [userId, setUserId] = useState();
-  let [myPreferencies, setMyPreferencies] = useState([]);
+  const [userId, setUserId] = useState();
+  const [myPreferencies, setMyPreferencies] = useState([]);
 
   useEffect(() => {
     let user = null;
@@ -30,11 +28,7 @@ function MyPreferences({ title }) {
       await refreshMyFilters(user);
     }
 
-    if (myCategories && myCategories.length) {
-      setMyPreferencies(myCategories);
-    } else {
-      fetchData();
-    }
+    fetchData();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const refreshMyFilters = async (userId) => {
@@ -62,11 +56,11 @@ function MyPreferences({ title }) {
   };
 
   const onDetails = (filter) => {
-    navigate("/details", { state: { preference: filter } });
+    navigate("/details/" + filter.categoryId);
   };
 
   const onEdit = (filter) => {
-    navigate("/details", { state: { preference: filter } });
+    navigate("/details/" + filter.categoryId);
   };
 
   return (

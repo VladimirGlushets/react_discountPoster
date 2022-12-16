@@ -1,37 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../Button/Button";
 import DetailsItem from "../DetailsItem/DetailsItem";
 import "./PreferenceDetails.css";
 
-const { upsertPreference } = require("../../data/data");
+const { upsertPreference, getPreference } = require("../../data/data");
 
 const tg = window.Telegram.WebApp;
 
 function PreferenceDetails({ title }) {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const { preference } = state; // Read values passed on state
+  let { id } = useParams();
 
-  const [preferenceDetails, setPreferenceDetails] = useState({ ...preference });
+  const [initPreference, setInitPreference] = useState({});
+  const [preferenceDetails, setPreferenceDetails] = useState({});
+
   const [saveVisible, setSaveVisible] = useState(false);
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [validationError, setValidationError] = useState("");
   const [userId, setUserId] = useState();
 
-  const defaultUserId = 558969327;  
-  
+  const defaultUserId = 558969327;
+
   useEffect(() => {
-    tg.ready();
+    let user = null;
     if (tg.initDataUnsafe.user) {
-      setUserId(tg.initDataUnsafe.user.id);
+      user = tg.initDataUnsafe.user.id;
     } else {
-      setUserId(defaultUserId);
+      user = defaultUserId;
     }
-  }, []); 
+    setUserId(user);
+
+    async function fetchData() {      
+      let initPref = await getPreference(user, id);
+      setInitPreference(initPref);
+      setPreferenceDetails({...initPref});
+    }
+
+    fetchData();    
+  }, []);
 
   const onPrefChange = (pref) => {
-    if (JSON.stringify(preference) !== JSON.stringify(pref)) {
+    if (JSON.stringify(initPreference) !== JSON.stringify(pref)) {
       setSaveVisible(true);
       setPreferenceDetails(pref);
     } else {

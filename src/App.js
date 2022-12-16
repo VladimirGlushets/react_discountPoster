@@ -17,7 +17,7 @@ function App() {
             element={<NewPreference title="New category" />}
           />
           <Route
-            path={"details"}
+            path={"details/:id"}
             element={<PreferenceDetails title="Preference details" />}
           />
           <Route

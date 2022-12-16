@@ -57,3 +57,14 @@ export async function deleteFilter(userId, data) {
 export async function upsertPreference(userId, data) {
   console.log(data);
 }
+
+export async function getPreference(userId, categoryId) {
+  return {
+    categoryId: 3345522,
+    categoryName: "Телефоны",
+    minDiscount: 50,
+    minRating: 4.6,
+    priceFrom: 1,
+    priceTo: 5,
+  };
+}

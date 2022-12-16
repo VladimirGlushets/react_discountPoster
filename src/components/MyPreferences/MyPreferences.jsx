@@ -30,7 +30,7 @@ function MyPreferences({ title }) {
       await refreshMyFilters(user);
     }
 
-    if (myCategories.length) {
+    if (myCategories && myCategories.length) {
       setMyPreferencies(myCategories);
     } else {
       fetchData();

@@ -23,9 +23,9 @@ steps:
 - task: CopyFiles@2
   displayName: Copy exe file
   inputs:
-    SourceFolder: '/'
-    Contents: 'staticwebapp.config.json'
-    TargetFolder: 'build'
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**/staticwebapp.config.json'
+    TargetFolder: '$(System.DefaultWorkingDirectory)/build'
     flattenFolders: true
 
 - task: PublishBuildArtifacts@1

@@ -33,7 +33,20 @@ export async function getPreference(userId, categoryId) {
 }
 
 export async function deletePreference(userId, data) {
-  console.log("" + userId + data);
+  let url = baseUrl + "/api/MyPreferences/" + userId;
+
+  try {
+    await fetch(url, {
+      method: "DELETE",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "x-functions-key": process.env.REACT_APP_MYPREFERENCES_API_KEY
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export async function upsertPreference(userId, data) {

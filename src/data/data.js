@@ -67,56 +67,33 @@ export async function upsertPreference(userId, data) {
 }
 
 export async function getAllGroups() {
-  return [
-    {
-      groupId: 202000054,
-      icon: "📱",
-      displayName: "Мобильные телефоны и аксессуары",
-    },
-    {
-      groupId: 202004207,
-      icon: "🍽",
-      displayName: "Кухня, столовая и бар",
-    },
-    {
-      groupId: 202040075,
-      icon: "🪢",
-      displayName: "Хобби и рукоделие",
-    },
-  ];
+  let url = baseUrl + "/api/Groups";
+
+  try {    
+    const response = await fetch(url, {
+      headers: {
+        "x-functions-key": process.env.REACT_APP_GROUPS_API_KEY
+      },
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 }
 
 export async function getAllCategoriesForGroup(groupId) {
-  return [
-    {
-      categoryId: 202000054,
-      icon: "🍽",
-      displayName: "Смартфоны",
-    },
-    {
-      categoryId: 202004207,
-      icon: "🍽",
-      displayName: "Носимые устройства",
-    },
-    {
-      categoryId: 202040075,
-      icon: "🍽",
-      displayName: "Наушники и гарнитуры",
-    },
-    {
-      categoryId: 202060849,
-      icon: "🍽",
-      displayName: "Чехлы для смартфонов",
-    },
-    {
-      categoryId: 202004969,
-      icon: "🍽",
-      displayName: "Стёкла и плёнки для телефонов",
-    },
-    {
-      categoryId: 202001970,
-      icon: "🍽",
-      displayName: "Кабели для мобильных телефонов",
-    },
-  ];
+  let url = baseUrl + "/api/Groups/" + groupId;
+
+  try {    
+    const response = await fetch(url, {
+      headers: {
+        "x-functions-key": process.env.REACT_APP_GROUPS_API_KEY
+      },
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 }

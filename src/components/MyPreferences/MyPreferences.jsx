@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Preference from "../Preference/Preference";
 import "./MyPreferences.css";
 
-const { getMyPreferencies, deleteFilter } = require("../../data/data");
+const { getMyPreferencies, deletePreference } = require("../../data/data");
 
 const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
@@ -50,7 +50,7 @@ function MyPreferences({ title }) {
 
   const deleteFilterHandler = async (ok, filter) => {
     if (ok) {
-      await deleteFilter(userId, filter);
+      await deletePreference(userId, filter);
       await refreshMyFilters(userId);
     }
   };

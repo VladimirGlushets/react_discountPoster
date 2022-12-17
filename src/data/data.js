@@ -1,78 +1,49 @@
-// const baseUrl =
-//   // "https://carposterapi-staging.azurewebsites.net";
-//   "http://localhost:8080";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export async function getMyPreferencies(userId) {
-  return [
-    {
-      categoryId: 123456,
-      categoryName: "Хобби и рукоделие",
-      minDiscount: 50,
-      minRating: 4.6,
-      priceFrom: 1,
-      priceTo: 5,
-    },
-    {
-      categoryId: 334422,
-      categoryName: "Рукоделие",
-      minDiscount: 50,
-      minRating: 4.6,
-      priceFrom: 1,
-      priceTo: 5,
-    },
-    {
-      categoryId: 3345522,
-      categoryName: "Телефоны",
-      minDiscount: 50,
-      minRating: 4.6,
-      priceFrom: 1,
-      priceTo: 5,
-    },
-    {
-      categoryId: 3345512,
-      categoryName: "Телефоны",
-      minDiscount: 50,
-      minRating: 4.6,
-      priceFrom: 1,
-      priceTo: 5,
-    },
-  ];
+  let url = baseUrl + "/api/MyPreferences/" + userId;
 
-  // let url = baseUrl + "/api/vendors";
-
-  // try {
-  //   // get the data from the api
-  //   const response = await fetch(url);
-  //   return await response.json();
-  // } catch (e) {
-  //   console.log(e);
-  //   return null;
-  // }
+  try {
+    // get the data from the api
+    const response = await fetch(url);
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 }
 
-export async function deleteFilter(userId, data) {
+export async function getPreference(userId, categoryId) {
+  let url = baseUrl + "/api/MyPreferences/" + userId + "/" + categoryId;
+
+  try {
+    // get the data from the api
+    const response = await fetch(url);
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function deletePreference(userId, data) {
   console.log("" + userId + data);
 }
 
 export async function upsertPreference(userId, data) {
-  console.log(data);
-  // categoryId: 3345522,
-  //   categoryName: "Телефоны",
-  //   minDiscount: 50,
-  //   minRating: 4.6,
-  //   priceFrom: 1,
-  //   priceTo: 5,
-}
+  let url = baseUrl + "/api/MyPreferences/" + userId;
 
-export async function getPreference(userId, categoryId) {
-  return {
-    categoryId: 3345522,
-    categoryName: "Телефоны",
-    minDiscount: 50,
-    minRating: 4.6,
-    priceFrom: 1,
-    priceTo: 5,
-  };
+  try {
+    await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export async function getAllGroups() {

@@ -13,6 +13,7 @@ function MainMenu({ title }) {
   const navigate = useNavigate();
 
   const [myCategories, setMyCategories] = useState([]);
+  const [myCategoriesTitle, setMyCategoriesTitle] = useState();
 
   useEffect(() => {
     tg.ready();
@@ -26,6 +27,12 @@ function MainMenu({ title }) {
     async function fetchData() {
       const filters = await getMyPreferencies(user);
       setMyCategories(filters);
+
+      setMyCategoriesTitle(
+        filters && filters.length
+          ? "Мои категории (" + filters.length + ")"
+          : "Мои категории"
+      );
     }
 
     fetchData();
@@ -38,10 +45,6 @@ function MainMenu({ title }) {
   const newCategoryOnClick = () => {
     navigate("/newcategory");
   };
-
-  let myCategoriesTitle = myCategories.length
-    ? "Мои категории (" + myCategories.length + ")"
-    : "Мои категории";
 
   const mainMenuDom = (
     <>
@@ -57,8 +60,8 @@ function MainMenu({ title }) {
 
   return (
     <div className="mainmenu">
-      <h1>{title}</h1>
-      {myCategories.length ? (
+      <h1>{myCategoriesTitle}</h1>
+      {myCategories && myCategories.length ? (
         mainMenuDom
       ) : (
         <NewPreference title="New category" />

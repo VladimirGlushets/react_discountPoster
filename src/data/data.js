@@ -3,9 +3,12 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 export async function getMyPreferencies(userId) {
   let url = baseUrl + "/api/MyPreferences/" + userId;
 
-  try {
-    // get the data from the api
-    const response = await fetch(url);
+  try {    
+    const response = await fetch(url, {
+      headers: {
+        "x-functions-key": process.env.REACT_APP_MYPREFERENCES_API_KEY
+      },
+    });
     return await response.json();
   } catch (e) {
     console.log(e);
@@ -16,9 +19,12 @@ export async function getMyPreferencies(userId) {
 export async function getPreference(userId, categoryId) {
   let url = baseUrl + "/api/MyPreferences/" + userId + "/" + categoryId;
 
-  try {
-    // get the data from the api
-    const response = await fetch(url);
+  try {    
+    const response = await fetch(url, {
+      headers: {
+        "x-functions-key": process.env.REACT_APP_MYPREFERENCES_API_KEY
+      },
+    });
     return await response.json();
   } catch (e) {
     console.log(e);
@@ -39,6 +45,7 @@ export async function upsertPreference(userId, data) {
       body: JSON.stringify(data),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
+        "x-functions-key": process.env.REACT_APP_MYPREFERENCES_API_KEY
       },
     });
   } catch (e) {

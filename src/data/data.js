@@ -27,15 +27,7 @@ export async function getMyPreferencies(userId) {
       minRating: 4.6,
       priceFrom: 1,
       priceTo: 5,
-    },
-    {
-      categoryId: 3345521,
-      categoryName: "Магнитофоны",
-      minDiscount: 50,
-      minRating: 4.6,
-      priceFrom: 1,
-      priceTo: 5,
-    },
+    }
   ];
 
   // let url = baseUrl + "/api/vendors";

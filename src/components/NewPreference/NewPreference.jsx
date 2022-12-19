@@ -7,6 +7,7 @@ const {
   getAllGroups,
   getAllCategoriesForGroup,
   upsertPreference,
+  getPreference,
 } = require("../../data/data");
 
 const tg = window.Telegram.WebApp;
@@ -53,7 +54,11 @@ function NewPreference({ title }) {
   };
 
   const onCategoryClick = async (categoryId) => {
-    await upsertPreference(userId, { categoryId: categoryId });
+    let existingPref = await getPreference(userId, categoryId);
+    if (existingPref == null) {
+      await upsertPreference(userId, { categoryId: categoryId });
+    }
+
     navigate("/details/" + categoryId);
   };
 

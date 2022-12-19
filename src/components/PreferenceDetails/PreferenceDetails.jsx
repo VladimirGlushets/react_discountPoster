@@ -55,22 +55,28 @@ function PreferenceDetails({ title }) {
   };
 
   const minDiscountOnChange = (e) => {
-    let value = parseInt(e.target.value);
-    if (isNaN(value)) {
-      setValidationError("Минимальная скидка должна быть числом");
-      setSaveDisabled(true);
-      return;
-    }
+    let value;
+    if (e.target.value) {
+      value = parseInt(e.target.value);
+      if (isNaN(value)) {
+        setValidationError("Минимальная скидка должна быть числом");
+        setSaveDisabled(true);
+        return;
+      }
 
-    if (value > 100) {
-      setValidationError("Минимальная скидка больше 100%");
-      setSaveDisabled(true);
-      return;
-    }
-    if (validationError) {
-      setValidationError("");
-      setSaveDisabled(false);
-    }
+      if (value > 100) {
+        setValidationError("Минимальная скидка больше 100%");
+        setSaveDisabled(true);
+        return;
+      }
+      if (validationError) {
+        setValidationError("");
+        setSaveDisabled(false);
+      }
+    } else {
+      value = null;
+    }  
+
     let pref = { ...preferenceDetails };
     pref.minDiscount = value;
 
@@ -78,21 +84,27 @@ function PreferenceDetails({ title }) {
   };
 
   const minRatingOnChange = (e) => {
-    let value = parseFloat(e.target.value);
-    if (isNaN(value)) {
-      setValidationError("Минимальный рейтинг должен быть числом");
-      setSaveDisabled(true);
-      return;
-    }
+    let value;
+    if (e.target.value) {
+      value = parseFloat(e.target.value);
+      if (isNaN(value)) {
+        setValidationError("Минимальный рейтинг должен быть числом");
+        setSaveDisabled(true);
+        return;
+      }
 
-    if (value > 5) {
-      setValidationError("Минимальный рейтинг от 0 до 5");
-      setSaveDisabled(true);
-      return;
-    }
-    if (validationError) {
-      setValidationError("");
-      setSaveDisabled(false);
+      if (value > 5) {
+        setValidationError("Минимальный рейтинг от 0 до 5");
+        setSaveDisabled(true);
+        return;
+      }
+
+      if (validationError) {
+        setValidationError("");
+        setSaveDisabled(false);
+      }
+    } else {
+      value = null;
     }
 
     let pref = { ...preferenceDetails };
@@ -102,16 +114,30 @@ function PreferenceDetails({ title }) {
   };
 
   const priceFromOnChange = (e) => {
-    let value = parseFloat(e.target.value);
-    if (isNaN(value)) {
-      setValidationError("Цена от должна быть числом");
-      setSaveDisabled(true);
-      return;
-    }
+    let value;
+    if (e.target.value) {
+      value = parseFloat(e.target.value);
+      if (isNaN(value)) {
+        setValidationError("Цена От должна быть числом");
+        setSaveDisabled(true);
+        return;
+      }
 
-    if (validationError) {
-      setValidationError("");
-      setSaveDisabled(false);
+      if (
+        preferenceDetails.priceTo != null &&
+        value >= preferenceDetails.priceTo
+      ) {
+        setValidationError("Цена От должна быть меньше цены До");
+        setSaveDisabled(true);
+        return;
+      }
+
+      if (validationError) {
+        setValidationError("");
+        setSaveDisabled(false);
+      }
+    } else {
+      value = null;
     }
 
     let pref = { ...preferenceDetails };
@@ -121,15 +147,28 @@ function PreferenceDetails({ title }) {
   };
 
   const priceToOnChange = (e) => {
-    let value = parseFloat(e.target.value);
-    if (isNaN(value)) {
-      setValidationError("Цена до должна быть числом");
-      setSaveDisabled(true);
-      return;
-    }
-    if (validationError) {
-      setValidationError("");
-      setSaveDisabled(false);
+    // if empty string
+    let value;
+    if (e.target.value) {
+      value = parseFloat(e.target.value);
+      if (isNaN(value)) {
+        setValidationError("Цена до должна быть числом");
+        setSaveDisabled(true);
+        return;
+      }
+
+      if (value <= preferenceDetails.priceFrom) {
+        setValidationError("Цена От должна быть меньше цены До");
+        setSaveDisabled(true);
+        return;
+      }
+
+      if (validationError) {
+        setValidationError("");
+        setSaveDisabled(false);
+      }
+    } else {
+      value = null;
     }
 
     let pref = { ...preferenceDetails };
@@ -184,12 +223,12 @@ function PreferenceDetails({ title }) {
           onChange={minRatingOnChange}
         />
         <DetailsItem
-          label={"Цена от $"}
+          label={"Цена От $"}
           value={preferenceDetails.priceFrom}
           onChange={priceFromOnChange}
         />
         <DetailsItem
-          label={"Цена до $"}
+          label={"Цена До $"}
           value={preferenceDetails.priceTo}
           onChange={priceToOnChange}
         />

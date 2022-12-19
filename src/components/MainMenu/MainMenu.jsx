@@ -14,6 +14,7 @@ function MainMenu({ title }) {
 
   const [myCategories, setMyCategories] = useState([]);
   const [myCategoriesTitle, setMyCategoriesTitle] = useState();
+  const [isMyPrefLoading, setIsMyPrefLoading] = useState(false);
 
   useEffect(() => {
     tg.ready();
@@ -25,8 +26,11 @@ function MainMenu({ title }) {
     }
 
     async function fetchData() {
+      setIsMyPrefLoading(true);
+
       const filters = await getMyPreferencies(user);
       setMyCategories(filters);
+      setIsMyPrefLoading(false);
 
       setMyCategoriesTitle(
         filters && filters.length
@@ -60,8 +64,15 @@ function MainMenu({ title }) {
 
   return (
     <div className="mainmenu">
-      <h1>{myCategoriesTitle}</h1>
-      {myCategories && myCategories.length ? (
+      <h1>{title}</h1>
+      {isMyPrefLoading ? (
+        <>
+          <h2>Loading...</h2>
+          <div className="mainmenu-item">
+            <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
+          </div>
+        </>
+      ) : myCategories && myCategories.length ? (
         mainMenuDom
       ) : (
         <NewPreference title="New category" />

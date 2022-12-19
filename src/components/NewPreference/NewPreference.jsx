@@ -49,7 +49,7 @@ function NewPreference({ title }) {
     navigate("/details/" + categoryId);
   };
 
-  const allGroupsDom = allGroups.length
+  const allGroupsDom = allGroups && allGroups.length
     ? allGroups.map((group, index) => {
         let title = "" + group.icon + group.displayName;
 

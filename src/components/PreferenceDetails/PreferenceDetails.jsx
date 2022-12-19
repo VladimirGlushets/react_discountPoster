@@ -19,6 +19,8 @@ function PreferenceDetails({ title }) {
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [validationError, setValidationError] = useState("");
   const [userId, setUserId] = useState();
+  const [prefLoading, setPrefLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   const defaultUserId = 558969327;
 
@@ -31,13 +33,16 @@ function PreferenceDetails({ title }) {
     }
     setUserId(user);
 
-    async function fetchData() {      
+    async function fetchData() {
+      setPrefLoading(true);
       let initPref = await getPreference(user, id);
+      setPrefLoading(false);
+
       setInitPreference(initPref);
-      setPreferenceDetails({...initPref});
+      setPreferenceDetails({ ...initPref });
     }
 
-    fetchData();    
+    fetchData();
   }, []);
 
   const onPrefChange = (pref) => {
@@ -140,58 +145,72 @@ function PreferenceDetails({ title }) {
   };
 
   const onSave = async () => {
+    setIsSaving(true);
     await upsertPreference(userId, preferenceDetails);
+    setIsSaving(false);
 
     showPopup("Изменения сохранены", "Saved");
     setSaveVisible(false);
   };
 
+  const loadingDom = <h3>Loading...</h3>;
+  const savingDom = <h3>Saving...</h3>;
+  const saveButtonDom = saveVisible ? (
+    isSaving ? (
+      savingDom
+    ) : (
+      <Button
+        title={"Save changes"}
+        onClick={onSave}
+        isDisabled={saveDisabled}
+      />
+    )
+  ) : (
+    <></>
+  );
+
+  const prefDetailsDom = (
+    <>
+      <h1>{preferenceDetails.categoryName}</h1>
+      <section>
+        <DetailsItem
+          label={"Минимальная скидка, %"}
+          value={preferenceDetails.minDiscount}
+          onChange={minDiscountOnChange}
+        />
+        <DetailsItem
+          label={"Минимальный рейтинг, 0-5"}
+          value={preferenceDetails.minRating}
+          onChange={minRatingOnChange}
+        />
+        <DetailsItem
+          label={"Цена от $"}
+          value={preferenceDetails.priceFrom}
+          onChange={priceFromOnChange}
+        />
+        <DetailsItem
+          label={"Цена до $"}
+          value={preferenceDetails.priceTo}
+          onChange={priceToOnChange}
+        />
+        {validationError ? (
+          <div className="validation-error">{validationError}</div>
+        ) : (
+          <></>
+        )}
+        {saveButtonDom}
+      </section>
+    </>
+  );
+
   return (
     <>
       <div className="preference-details">
-        {!preferenceDetails ? (
-          "NoPreference"
-        ) : (
-          <>
-            <h1>{preferenceDetails.categoryName}</h1>
-            <section>
-              <DetailsItem
-                label={"Минимальная скидка, %"}
-                value={preferenceDetails.minDiscount}
-                onChange={minDiscountOnChange}
-              />
-              <DetailsItem
-                label={"Минимальный рейтинг, 0-5"}
-                value={preferenceDetails.minRating}
-                onChange={minRatingOnChange}
-              />
-              <DetailsItem
-                label={"Цена от $"}
-                value={preferenceDetails.priceFrom}
-                onChange={priceFromOnChange}
-              />
-              <DetailsItem
-                label={"Цена до $"}
-                value={preferenceDetails.priceTo}
-                onChange={priceToOnChange}
-              />
-              {validationError ? (
-                <div className="validation-error">{validationError}</div>
-              ) : (
-                <></>
-              )}
-              {saveVisible ? (
-                <Button
-                  title={"Save changes"}
-                  onClick={onSave}
-                  isDisabled={saveDisabled}
-                />
-              ) : (
-                <></>
-              )}
-            </section>
-          </>
-        )}
+        {prefLoading
+          ? loadingDom
+          : !preferenceDetails
+          ? "NoPreference"
+          : prefDetailsDom}
       </div>
     </>
   );

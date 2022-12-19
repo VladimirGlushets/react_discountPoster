@@ -19,6 +19,8 @@ function NewPreference({ title }) {
   const [selectedGroupId, setSelectedGroupId] = useState();
   const [categories, setCategories] = useState([]);
   const [userId, setUserId] = useState();
+  const [isAllGroupsLoading, setIsAllGroupsLoading] = useState(false);
+  const [isAllCategoriesLoading, setIsAllCategoriesLoading] = useState(false);
 
   useEffect(() => {
     let user = null;
@@ -30,7 +32,10 @@ function NewPreference({ title }) {
     setUserId(user);
 
     async function fetchData() {
+      setIsAllGroupsLoading(true);
       let allCategories = await getAllGroups();
+      setIsAllGroupsLoading(false);
+
       setAllGroups(allCategories);
     }
 
@@ -40,7 +45,10 @@ function NewPreference({ title }) {
   const onGroupClick = async (groupId) => {
     setSelectedGroupId(groupId);
 
+    setIsAllCategoriesLoading(true);
     let categories = await getAllCategoriesForGroup(groupId);
+    setIsAllCategoriesLoading(false);
+
     setCategories(categories);
   };
 
@@ -49,21 +57,24 @@ function NewPreference({ title }) {
     navigate("/details/" + categoryId);
   };
 
-  const allGroupsDom = allGroups && allGroups.length
-    ? allGroups.map((group, index) => {
-        let title = "" + group.icon + group.displayName;
+  const allGroupsDom =
+    allGroups && allGroups.length
+      ? allGroups.map((group, index) => {
+          let title = "" + group.icon + group.displayName;
 
-        return (
-          <Button
-            key={index}
-            title={title}
-            onClick={() => onGroupClick(group.groupId)}
-          />
-        );
-      })
-    : "No supported categories.";
+          return (
+            <Button
+              key={index}
+              title={title}
+              onClick={() => onGroupClick(group.groupId)}
+            />
+          );
+        })
+      : "No supported categories.";
 
-  const categoriesDom = categories.length ? (
+  const categoriesDom = isAllCategoriesLoading ? (
+    <h3>Loading...</h3>
+  ) : categories.length ? (
     categories.map((category, index) => {
       let title = "" + category.icon + category.displayName;
 
@@ -83,7 +94,13 @@ function NewPreference({ title }) {
     <>
       <div className="new_category">
         <h1>{title}</h1>
-        {selectedGroupId ? categoriesDom : allGroupsDom}
+        {isAllGroupsLoading ? (
+          <h3>Loading...</h3>
+        ) : selectedGroupId ? (
+          categoriesDom
+        ) : (
+          allGroupsDom
+        )}
       </div>
     </>
   );

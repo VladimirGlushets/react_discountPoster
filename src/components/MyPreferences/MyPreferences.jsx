@@ -13,6 +13,7 @@ function MyPreferences({ title }) {
 
   const [userId, setUserId] = useState();
   const [myPreferencies, setMyPreferencies] = useState([]);
+  const [isPrefLoading, setIsPrefLoading] = useState(false);
 
   useEffect(() => {
     let user = null;
@@ -24,7 +25,6 @@ function MyPreferences({ title }) {
     setUserId(user);
 
     async function fetchData() {
-      console.log("fetch data");
       await refreshMyFilters(user);
     }
 
@@ -32,7 +32,10 @@ function MyPreferences({ title }) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const refreshMyFilters = async (userId) => {
+    setIsPrefLoading(true);
     let jsonFilters = await getMyPreferencies(userId);
+    setIsPrefLoading(false);
+
     if (jsonFilters.length) {
       setMyPreferencies(jsonFilters);
     }
@@ -50,8 +53,10 @@ function MyPreferences({ title }) {
 
   const deleteFilterHandler = async (ok, filter) => {
     if (ok) {
+      setIsPrefLoading(true);
       await deletePreference(userId, filter);
       await refreshMyFilters(userId);
+      setIsPrefLoading(false);
     }
   };
 
@@ -66,7 +71,9 @@ function MyPreferences({ title }) {
   return (
     <div className="my_categories">
       <h1>{title}</h1>
-      {myPreferencies.length ? (
+      {isPrefLoading ? (
+        <h2>Loading...</h2>
+      ) : myPreferencies.length ? (
         myPreferencies.map((pref, index) => {
           return (
             <Preference

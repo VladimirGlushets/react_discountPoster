@@ -13,8 +13,8 @@ function MainMenu({ title }) {
   const navigate = useNavigate();
 
   const [myCategories, setMyCategories] = useState([]);
-  const [myCategoriesTitle, setMyCategoriesTitle] = useState();
   const [isMyPrefLoading, setIsMyPrefLoading] = useState(false);
+  const [isMyPrefLoadingError, setIsMyPrefLoadingError] = useState(false);
 
   useEffect(() => {
     tg.ready();
@@ -28,15 +28,14 @@ function MainMenu({ title }) {
     async function fetchData() {
       setIsMyPrefLoading(true);
 
-      const filters = await getMyPreferencies(user);
-      setMyCategories(filters);
-      setIsMyPrefLoading(false);
-
-      setMyCategoriesTitle(
-        filters && filters.length
-          ? "Мои категории (" + filters.length + ")"
-          : "Мои категории"
-      );
+      try {
+        const filters = await getMyPreferencies(user);
+        setMyCategories(filters);
+        setIsMyPrefLoading(false);
+      } catch (e) {
+        setIsMyPrefLoading(false);
+        setIsMyPrefLoadingError(true);
+      }
     }
 
     fetchData();
@@ -53,12 +52,33 @@ function MainMenu({ title }) {
   const mainMenuDom = (
     <>
       <div className="mainmenu-item">
-        <Button title={myCategoriesTitle} onClick={myCategoriesOnClick} />
+        <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
       </div>
 
       <div className="mainmenu-item">
+        <Button
+          title={"Мои категории (" + myCategories.length + ")"}
+          onClick={myCategoriesOnClick}
+        />
+      </div>
+    </>
+  );
+
+  const isLoadingDom = (
+    <>
+      <div className="mainmenu-item">
         <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
       </div>
+      <h3>Loading...</h3>
+    </>
+  );
+
+  const isMyPrefLoadingErrorDom = (
+    <>
+      <div className="mainmenu-item">
+        <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
+      </div>
+      <h3>Data loading error.</h3>
     </>
   );
 
@@ -66,12 +86,9 @@ function MainMenu({ title }) {
     <div className="mainmenu">
       <h1>{title}</h1>
       {isMyPrefLoading ? (
-        <>
-          <h2>Loading...</h2>
-          <div className="mainmenu-item">
-            <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
-          </div>
-        </>
+        isLoadingDom
+      ) : isMyPrefLoadingError ? (
+        isMyPrefLoadingErrorDom
       ) : myCategories && myCategories.length ? (
         mainMenuDom
       ) : (

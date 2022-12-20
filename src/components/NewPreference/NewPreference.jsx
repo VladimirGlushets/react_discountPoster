@@ -18,7 +18,6 @@ function NewPreference({ title }) {
     tg.BackButton.isVisible = true;
     tg.BackButton.show();
     tg.BackButton.onClick(backButtonClickedHandler);
-    // tg.onEvent("backButtonClicked", backButtonClickedHandler);
 
     async function fetchData() {
       setIsAllGroupsLoading(true);
@@ -32,7 +31,6 @@ function NewPreference({ title }) {
 
     return () => {
       // отписываемся от события
-      // tg.offEvent("backButtonClicked", backButtonClickedHandler);
       tg.BackButton.offClick(backButtonClickedHandler);
     };
   }, []);
@@ -64,7 +62,6 @@ function NewPreference({ title }) {
     <>
       <div className="new_category">
         <h1>{title}</h1>
-        <Button title={"Back"} onClick={backButtonClickedHandler} />
         {isAllGroupsLoading ? <h3>Loading...</h3> : allGroupsDom}
       </div>
     </>

@@ -18,6 +18,9 @@ function MainMenu({ title }) {
 
   useEffect(() => {
     tg.ready();
+    tg.BackButton.isVisible = false;
+    tg.BackButton.hide();
+
     let user = null;
     if (tg.initDataUnsafe.user) {
       user = tg.initDataUnsafe.user.id;

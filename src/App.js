@@ -4,6 +4,7 @@ import "./App.css";
 import MainMenu from "./components/MainMenu/MainMenu";
 import MyPreferences from "./components/MyPreferences/MyPreferences";
 import NewPreference from "./components/NewPreference/NewPreference";
+import NewPreferenceGroup from "./components/NewPreferenceGroup/NewPreferenceGroup";
 import PreferenceDetails from "./components/PreferenceDetails/PreferenceDetails";
 
 function App() {
@@ -15,6 +16,10 @@ function App() {
           <Route
             path={"newcategory"}
             element={<NewPreference title="Выберите группу категорий" />}
+          />
+          <Route
+            path={"newcategory/:groupId"}
+            element={<NewPreferenceGroup title="Выберите категорию для группы" />}
           />
           <Route
             path={"details/:id"}

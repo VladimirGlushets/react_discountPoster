@@ -7,6 +7,7 @@ import "./PreferenceDetails.css";
 const { upsertPreference, getPreference } = require("../../data/data");
 
 const tg = window.Telegram.WebApp;
+const defaultUserId = 558969327;
 
 function PreferenceDetails({ title }) {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function PreferenceDetails({ title }) {
 
   const [initPreference, setInitPreference] = useState({});
   const [preferenceDetails, setPreferenceDetails] = useState({});
+  const [selectedGroupId, setSelectedGroupId] = useState();
 
   const [saveVisible, setSaveVisible] = useState(false);
   const [saveDisabled, setSaveDisabled] = useState(false);
@@ -22,9 +24,10 @@ function PreferenceDetails({ title }) {
   const [prefLoading, setPrefLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  const defaultUserId = 558969327;
-
   useEffect(() => {
+    tg.ready();
+    tg.onEvent("backButtonClicked", backButtonClickedHandler);
+
     let user = null;
     if (tg.initDataUnsafe.user) {
       user = tg.initDataUnsafe.user.id;
@@ -35,15 +38,25 @@ function PreferenceDetails({ title }) {
 
     async function fetchData() {
       setPrefLoading(true);
-      let initPref = await getPreference(user, id);
+      let prefResponse = await getPreference(user, id);
       setPrefLoading(false);
 
-      setInitPreference(initPref);
-      setPreferenceDetails({ ...initPref });
+      setInitPreference(prefResponse.myPreference);
+      setPreferenceDetails({ ...prefResponse.myPreference });
+      setSelectedGroupId(prefResponse.groupId);
     }
 
     fetchData();
+
+    return () => {
+      // отписываемся от события
+      tg.offEvent("backButtonClicked", backButtonClickedHandler);
+    };
   }, []);
+
+  const backButtonClickedHandler = () => {
+    navigate("/newcategory/" + selectedGroupId);
+  };
 
   const onPrefChange = (pref) => {
     if (JSON.stringify(initPreference) !== JSON.stringify(pref)) {
@@ -75,7 +88,7 @@ function PreferenceDetails({ title }) {
       }
     } else {
       value = null;
-    }  
+    }
 
     let pref = { ...preferenceDetails };
     pref.minDiscount = value;

@@ -16,6 +16,9 @@ function MyPreferences({ title }) {
   const [isPrefLoading, setIsPrefLoading] = useState(false);
 
   useEffect(() => {
+    tg.ready();
+    tg.onEvent("backButtonClicked", backButtonClickedHandler);
+
     let user = null;
     if (tg.initDataUnsafe.user) {
       user = tg.initDataUnsafe.user.id;
@@ -29,7 +32,16 @@ function MyPreferences({ title }) {
     }
 
     fetchData();
+
+    return () => {
+      // отписываемся от события
+      tg.offEvent("backButtonClicked", backButtonClickedHandler);
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const backButtonClickedHandler = () => {
+    navigate("/");
+  };
 
   const refreshMyFilters = async (userId) => {
     setIsPrefLoading(true);

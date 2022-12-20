@@ -5,8 +5,7 @@ import "./NewPreference.css";
 
 const { getAllGroups } = require("../../data/data");
 
-// const tg = window.Telegram.WebApp;
-// const defaultUserId = 558969327;
+const tg = window.Telegram.WebApp;
 
 function NewPreference({ title }) {
   const navigate = useNavigate();
@@ -15,6 +14,9 @@ function NewPreference({ title }) {
   const [isAllGroupsLoading, setIsAllGroupsLoading] = useState(false);
 
   useEffect(() => {
+    tg.ready();
+    tg.onEvent("backButtonClicked", backButtonClickedHandler);
+
     async function fetchData() {
       setIsAllGroupsLoading(true);
       let allCategories = await getAllGroups();
@@ -24,7 +26,16 @@ function NewPreference({ title }) {
     }
 
     fetchData();
+
+    return () => {
+      // отписываемся от события
+      tg.offEvent("backButtonClicked", backButtonClickedHandler);
+    };
   }, []);
+
+  const backButtonClickedHandler = () => {
+    navigate("/");
+  };
 
   const onGroupClick = async (groupId) => {
     navigate("/newcategory/" + groupId);

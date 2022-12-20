@@ -20,6 +20,7 @@ function NewPreferenceGroup({ title }) {
   const [categories, setCategories] = useState([]);
   const [userId, setUserId] = useState();
   const [isAllCategoriesLoading, setIsAllCategoriesLoading] = useState(false);
+  const [isCategorySaving, setIsCategorySaving] = useState(false);
 
   useEffect(() => {
     tg.ready();
@@ -55,10 +56,12 @@ function NewPreferenceGroup({ title }) {
   };
 
   const onCategoryClick = async (categoryId) => {
+    setIsCategorySaving(true);
     let existingPref = await getPreference(userId, categoryId);
     if (existingPref == null) {
       await upsertPreference(userId, { categoryId: categoryId });
     }
+    setIsCategorySaving(false);
 
     navigate("/details/" + categoryId);
   };
@@ -91,7 +94,13 @@ function NewPreferenceGroup({ title }) {
         <h2 className="new_category_title" onClick={onTitleClick}>
           {group.displayName}
         </h2>
-        {isAllCategoriesLoading ? <h3>Loading...</h3> : categoriesDom}
+        {isAllCategoriesLoading ? (
+          <h3>Loading...</h3>
+        ) : isCategorySaving ? (
+          <h3>Saving...</h3>
+        ) : (
+          categoriesDom
+        )}
       </div>
     </>
   );

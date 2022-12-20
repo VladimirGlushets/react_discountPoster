@@ -22,6 +22,9 @@ function NewPreferenceGroup({ title }) {
   const [isAllCategoriesLoading, setIsAllCategoriesLoading] = useState(false);
 
   useEffect(() => {
+    tg.ready();
+    tg.onEvent("backButtonClicked", backButtonClickedHandler);
+
     let user = null;
     if (tg.initDataUnsafe.user) {
       user = tg.initDataUnsafe.user.id;
@@ -40,7 +43,16 @@ function NewPreferenceGroup({ title }) {
     }
 
     fetchData();
+
+    return () => {
+      // отписываемся от события
+      tg.offEvent("backButtonClicked", backButtonClickedHandler);
+    };
   }, []);
+
+  const backButtonClickedHandler = () => {
+    navigate("/newcategory");
+  };
 
   const onCategoryClick = async (categoryId) => {
     let existingPref = await getPreference(userId, categoryId);
@@ -51,9 +63,9 @@ function NewPreferenceGroup({ title }) {
     navigate("/details/" + categoryId);
   };
 
-const onTitleClick = () => {
+  const onTitleClick = () => {
     navigate("/newcategory");
-};
+  };
 
   const categoriesDom = categories.length ? (
     <>
@@ -76,7 +88,9 @@ const onTitleClick = () => {
   return (
     <>
       <div className="new_category">
-        <h2 className="new_category_title" onClick={onTitleClick}>{group.displayName}</h2>
+        <h2 className="new_category_title" onClick={onTitleClick}>
+          {group.displayName}
+        </h2>
         {isAllCategoriesLoading ? <h3>Loading...</h3> : categoriesDom}
       </div>
     </>

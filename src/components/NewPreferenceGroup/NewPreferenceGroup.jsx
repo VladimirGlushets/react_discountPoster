@@ -15,7 +15,6 @@ const defaultUserId = 558969327;
 function NewPreferenceGroup({ title }) {
   const navigate = useNavigate();
   let { groupId } = useParams();
-
   const [group, setGroup] = useState({});
   const [categories, setCategories] = useState([]);
   const [userId, setUserId] = useState();
@@ -49,7 +48,7 @@ function NewPreferenceGroup({ title }) {
       // отписываемся от события
       tg.offEvent("backButtonClicked", backButtonClickedHandler);
     };
-  }, []);
+  }, [groupId]);
 
   const backButtonClickedHandler = () => {
     navigate("/newcategory");

@@ -1,7 +1,8 @@
-.new_category_title{
-    text-decoration: underline;
-    margin: 0px;
+.new_category h3 {
+  margin: 0px;
 }
-.new_category_title h3{
-    margin: 0px;
+
+.new_category_title {
+  text-decoration: underline;
+  margin: 0px;
 }

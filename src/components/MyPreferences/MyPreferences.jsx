@@ -73,11 +73,11 @@ function MyPreferences({ title }) {
   };
 
   const onDetails = (filter) => {
-    navigate("/details/" + filter.categoryId);
+    navigate("/details/" + filter.categoryId + "/false");
   };
 
   const onEdit = (filter) => {
-    navigate("/details/" + filter.categoryId);
+    navigate("/details/" + filter.categoryId + "/false");
   };
 
   return (

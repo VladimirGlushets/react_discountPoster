@@ -11,7 +11,7 @@ const defaultUserId = 558969327;
 
 function PreferenceDetails({ title }) {
   const navigate = useNavigate();
-  let { id } = useParams();
+  let { id, isNew } = useParams();
 
   const [initPreference, setInitPreference] = useState({});
   const [preferenceDetails, setPreferenceDetails] = useState({});
@@ -55,7 +55,11 @@ function PreferenceDetails({ title }) {
   }, []);
 
   const backButtonClickedHandler = () => {
-    navigate("/newcategory/" + selectedGroupId);
+    if(isNew === "true"){
+      navigate("/newcategory/" + selectedGroupId);
+    }else{
+      navigate("/mycategories");
+    }    
   };
 
   const onPrefChange = (pref) => {

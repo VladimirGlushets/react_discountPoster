@@ -62,7 +62,7 @@ function NewPreferenceGroup({ title }) {
     }
     setIsCategorySaving(false);
 
-    navigate("/details/" + categoryId);
+    navigate("/details/" + categoryId + "/true");
   };
 
   const onTitleClick = () => {

@@ -57,8 +57,8 @@ function NewPreferenceGroup({ title }) {
 
   const onCategoryClick = async (categoryId) => {
     setIsCategorySaving(true);
-    let existingPref = await getPreference(userId, categoryId);
-    if (existingPref == null) {
+    let existingPrefResponse = await getPreference(userId, categoryId);    
+    if (existingPrefResponse.myPreference == null) {
       await upsertPreference(userId, { categoryId: categoryId });
     }
     setIsCategorySaving(false);

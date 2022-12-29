@@ -12,12 +12,12 @@ function Preference({ preference, onDetails, onEdit, onDelete }) {
           className={"filter_detail_button"}
         />
         <Button
-          title={"Edit"}
+          title={"✏️"}
           onClick={() => onEdit(preference)}
           className={"filter_edit_button"}
         />
         <Button
-          title={"X"}
+          title={"✖️"}
           onClick={() => onDelete(preference)}
           className={"filter_delete_button"}
         />        

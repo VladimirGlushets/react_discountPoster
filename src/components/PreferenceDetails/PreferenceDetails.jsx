@@ -255,7 +255,7 @@ function PreferenceDetails({ title, isNew }) {
           onChange={minDiscountOnChange}
         />
         <DetailsItem
-          label={"Минимальный рейтинг, 0-5"}
+          label={"Минимальный рейтинг, от 0 до 5"}
           value={preferenceDetails.minRating}
           onChange={minRatingOnChange}
         />

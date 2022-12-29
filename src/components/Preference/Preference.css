@@ -18,12 +18,16 @@
 
 .filter_detail_button{
   margin: auto;
-  width: 70%;
+  
+  width: 80%;
+  min-height: 42px;
 }
 
 .filter_delete_button {
   margin-left: auto;
+  padding: 0px;
   width: 55px;
+  height: 42px;
   min-width: 55px;
   background-color: #ec7373;
   width: 10%;
@@ -32,6 +36,8 @@
 
 .filter_edit_button {
   margin-left: auto;
+  padding: 0px;
   min-width: 55px;
-  width: 20%;
+  height: 42px;
+  width: 10%;
 }

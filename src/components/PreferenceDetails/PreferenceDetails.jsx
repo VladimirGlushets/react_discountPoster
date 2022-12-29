@@ -43,6 +43,8 @@ function PreferenceDetails({ title, isNew }) {
       let prefResponse = await getPreference(user, categoryId);
       setPrefLoading(false);
 
+      console.log(prefResponse);
+      
       setInitPreference(prefResponse.myPreference);
       setPreferenceDetails({ ...prefResponse.myPreference });
       setSelectedGroupId(prefResponse.groupId);
@@ -54,7 +56,7 @@ function PreferenceDetails({ title, isNew }) {
       // отписываемся от события
       tg.BackButton.offClick(backButtonClickedHandler);
     };
-  }, []);
+  }, [selectedGroupId]);
 
   const backButtonClickedHandler = () => {
     console.log(isNew);

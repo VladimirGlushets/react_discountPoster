@@ -209,7 +209,10 @@ function PreferenceDetails({ title, isNew }) {
 
   const showPopup = (title, message) => {
     if (tg.initDataUnsafe.user) {
-      tg.showPopup({ title: title, message: message }, navigate("/"));
+      tg.showPopup({ title: title, message: message }, backButtonClickedHandler);
+    }
+    else{
+      backButtonClickedHandler();
     }
   };
 

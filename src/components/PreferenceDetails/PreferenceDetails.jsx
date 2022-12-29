@@ -42,8 +42,6 @@ function PreferenceDetails({ title, isNew }) {
       setPrefLoading(true);
       let prefResponse = await getPreference(user, categoryId);
       setPrefLoading(false);
-
-      console.log(prefResponse);
       
       setInitPreference(prefResponse.myPreference);
       setPreferenceDetails({ ...prefResponse.myPreference });
@@ -265,8 +263,6 @@ function PreferenceDetails({ title, isNew }) {
           <></>
         )}
         {saveButtonDom}
-        <Button title={"back"} onClick={backButtonClickedHandler}/>
-        <h3>{isNew} - {selectedGroupId}</h3>
       </section>
     </>
   );

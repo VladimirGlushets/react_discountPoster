@@ -86,13 +86,12 @@ function NewPreferenceGroup({ title }) {
       })}
     </>
   ) : (
-    <><h1>No Categories?</h1></>
+    <></>
   );
 
   return (
     <>
       <div className="new_category">
-        <h1>Test {groupId}</h1>
         <h2 className="new_category_title" onClick={onTitleClick}>
           {group.displayName}
         </h2>

@@ -86,7 +86,7 @@ function NewPreferenceGroup({ title }) {
       })}
     </>
   ) : (
-    <></>
+    <><h1>No Categories?</h1></>
   );
 
   return (

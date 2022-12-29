@@ -9,9 +9,9 @@ const { upsertPreference, getPreference } = require("../../data/data");
 const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
 
-function PreferenceDetails({ title }) {
+function PreferenceDetails({ title, isNew }) {
   const navigate = useNavigate();
-  let { id, isNew } = useParams();
+  let { categoryId } = useParams();
 
   const [initPreference, setInitPreference] = useState({});
   const [preferenceDetails, setPreferenceDetails] = useState({});
@@ -40,7 +40,7 @@ function PreferenceDetails({ title }) {
 
     async function fetchData() {
       setPrefLoading(true);
-      let prefResponse = await getPreference(user, id);
+      let prefResponse = await getPreference(user, categoryId);
       setPrefLoading(false);
 
       setInitPreference(prefResponse.myPreference);
@@ -57,7 +57,7 @@ function PreferenceDetails({ title }) {
   }, []);
 
   const backButtonClickedHandler = () => {
-    if(isNew === "true"){
+    if(isNew === true){
       navigate("/newcategory/" + selectedGroupId);
     }else{ 
       navigate("/mycategories");

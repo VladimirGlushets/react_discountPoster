@@ -75,11 +75,11 @@ function MyPreferences({ title }) {
   };
 
   const onDetails = (filter) => {
-    navigate("/details/" + filter.categoryId + "/false");
+    navigate("/details/" + filter.categoryId);
   };
 
   const onEdit = (filter) => {
-    navigate("/details/" + filter.categoryId + "/false");
+    navigate("/details/" + filter.categoryId);
   };
 
   return (

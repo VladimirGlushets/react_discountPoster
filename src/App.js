@@ -22,8 +22,12 @@ function App() {
             element={<NewPreferenceGroup title="Выберите категорию для группы" />}
           />
           <Route
-            path={"details/:id/:isNew"}
-            element={<PreferenceDetails title="Preference details" />}
+            path={"newcategory/:groupId/:categoryId"}
+            element={<PreferenceDetails title="Preference details" isNew={true}/>}
+          />
+          <Route
+            path={"details/:categoryId"}
+            element={<PreferenceDetails title="Preference details" isNew={false}/>}
           />
           <Route
             path={"mycategories"}

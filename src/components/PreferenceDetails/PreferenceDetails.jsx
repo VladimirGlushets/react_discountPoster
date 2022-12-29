@@ -18,6 +18,7 @@ function PreferenceDetails({ title, isNew }) {
   const [selectedGroupId, setSelectedGroupId] = useState();
 
   const [saveVisible, setSaveVisible] = useState(false);
+  const [skipVisible, setSkipVisible] = useState(isNew);
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [validationError, setValidationError] = useState("");
   const [userId, setUserId] = useState();
@@ -73,9 +74,13 @@ function PreferenceDetails({ title, isNew }) {
   const onPrefChange = (pref) => {
     if (JSON.stringify(initPreference) !== JSON.stringify(pref)) {
       setSaveVisible(true);
+      setSkipVisible(false);
       setPreferenceDetails(pref);
     } else {
       setSaveVisible(false);
+      if(isNew){
+        setSkipVisible(true);
+      }
     }
   };
 
@@ -275,7 +280,7 @@ function PreferenceDetails({ title, isNew }) {
           : !preferenceDetails
           ? "NoPreference"
           : prefDetailsDom}
-        {isNew === true ? (
+        {skipVisible ? (
           <Button title={"Пропустить"} onClick={backButtonClickedHandler} />
         ) : (
           <></>

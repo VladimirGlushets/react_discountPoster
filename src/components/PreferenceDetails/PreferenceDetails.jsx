@@ -57,9 +57,15 @@ function PreferenceDetails({ title, isNew }) {
   }, []);
 
   const backButtonClickedHandler = () => {
-    if(isNew === true){
-      navigate("/newcategory/" + selectedGroupId);
+    console.log(isNew);
+
+    if(isNew === true){      
+      console.log("New");
+      const groupId = selectedGroupId;
+      console.log(groupId);
+      navigate("/newcategory/" + groupId);
     }else{ 
+      console.log("Not new");
       navigate("/mycategories");
     }    
   };

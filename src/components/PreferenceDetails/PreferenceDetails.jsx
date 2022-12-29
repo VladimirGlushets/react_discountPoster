@@ -78,7 +78,7 @@ function PreferenceDetails({ title, isNew }) {
       setPreferenceDetails(pref);
     } else {
       setSaveVisible(false);
-      if(isNew){
+      if (isNew) {
         setSkipVisible(true);
       }
     }
@@ -209,9 +209,11 @@ function PreferenceDetails({ title, isNew }) {
 
   const showPopup = (title, message) => {
     if (tg.initDataUnsafe.user) {
-      tg.showPopup({ title: title, message: message }, backButtonClickedHandler);
-    }
-    else{
+      tg.showPopup(
+        { title: title, message: message },
+        backButtonClickedHandler
+      );
+    } else {
       backButtonClickedHandler();
     }
   };
@@ -237,6 +239,8 @@ function PreferenceDetails({ title, isNew }) {
         isDisabled={saveDisabled}
       />
     )
+  ) : skipVisible ? (
+    <Button title={"Пропустить"} onClick={backButtonClickedHandler} />
   ) : (
     <></>
   );
@@ -283,11 +287,6 @@ function PreferenceDetails({ title, isNew }) {
           : !preferenceDetails
           ? "NoPreference"
           : prefDetailsDom}
-        {skipVisible ? (
-          <Button title={"Пропустить"} onClick={backButtonClickedHandler} />
-        ) : (
-          <></>
-        )}
       </div>
     </>
   );

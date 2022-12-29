@@ -1,9 +1,10 @@
 .filter {
   display: flex;
   flex-direction: row;
-  max-height: 45px;
   margin-top: 10px;
   margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
 .filter p {
@@ -12,7 +13,6 @@
 }
 
 .filter button {
-  margin-top: 3px;
   margin-right: 5px;
 }
 
@@ -27,6 +27,7 @@
   min-width: 55px;
   background-color: #ec7373;
   width: 10%;
+  max-height: 45px;
 }
 
 .filter_edit_button {

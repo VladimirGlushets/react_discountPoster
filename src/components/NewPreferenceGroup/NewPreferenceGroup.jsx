@@ -7,10 +7,12 @@ const {
   getAllCategoriesForGroup,
   upsertPreference,
   getPreference,
+  getMyPreferencies,
 } = require("../../data/data");
 
 const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
+const existLabel = "✅";
 
 function NewPreferenceGroup({ title }) {
   const navigate = useNavigate();
@@ -38,6 +40,19 @@ function NewPreferenceGroup({ title }) {
     async function fetchData() {
       setIsAllCategoriesLoading(true);
       let categoriesResponse = await getAllCategoriesForGroup(groupId);
+
+      let myFilters = await getMyPreferencies(user);
+      categoriesResponse.categories.forEach((cat) => {
+        myFilters.every((f) => {
+          if(f.categoryId===cat.categoryId){
+            cat.icon = existLabel;
+            return false;
+          }
+          return true;
+        });
+        
+      });
+
       setIsAllCategoriesLoading(false);
 
       setGroup(categoriesResponse.group);
@@ -58,7 +73,7 @@ function NewPreferenceGroup({ title }) {
 
   const onCategoryClick = async (categoryId) => {
     setIsCategorySaving(true);
-    let existingPrefResponse = await getPreference(userId, categoryId);    
+    let existingPrefResponse = await getPreference(userId, categoryId);
     if (existingPrefResponse.myPreference == null) {
       await upsertPreference(userId, { categoryId: categoryId });
     }

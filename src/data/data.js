@@ -1,5 +1,12 @@
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
+// List of 
+// public int CategoryId { get; set; }
+// public string CategoryName { get; set; }
+// public int? MinDiscount { get; set; }
+// public double? MinRating { get; set; }
+// public double? PriceFrom { get; set; }
+// public double? PriceTo { get; set; }
 export async function getMyPreferencies(userId) {
   let url = baseUrl + "/api/MyPreferences/" + userId;
 
@@ -66,6 +73,11 @@ export async function upsertPreference(userId, data) {
   }
 }
 
+// List of
+// public int GroupId { get; set; }
+// public string DisplayName { get; set; }
+// public string Icon { get; set; }
+// public int Order { get; set; }
 export async function getAllGroups() {
   let url = baseUrl + "/api/Groups";
 

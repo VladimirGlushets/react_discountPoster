@@ -28,7 +28,7 @@ function PreferenceDetails({ title }) {
     tg.ready();
     tg.BackButton.isVisible = true;
     tg.BackButton.show();
-    tg.onEvent("backButtonClicked", backButtonClickedHandler);
+    tg.BackButton.onClick(backButtonClickedHandler);
 
     let user = null;
     if (tg.initDataUnsafe.user) {
@@ -52,7 +52,7 @@ function PreferenceDetails({ title }) {
 
     return () => {
       // отписываемся от события
-      tg.offEvent("backButtonClicked", backButtonClickedHandler);
+      tg.BackButton.offClick(backButtonClickedHandler);
     };
   }, []);
 

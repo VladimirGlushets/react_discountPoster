@@ -92,7 +92,7 @@ function NewPreferenceGroup({ title }) {
   return (
     <>
       <div className="new_category">
-        <h1>Test</h1>
+        <h1>Test {groupId}</h1>
         <h2 className="new_category_title" onClick={onTitleClick}>
           {group.displayName}
         </h2>

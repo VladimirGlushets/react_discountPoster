@@ -258,6 +258,7 @@ function PreferenceDetails({ title }) {
         )}
         {saveButtonDom}
         <Button title={"back"} onClick={backButtonClickedHandler}/>
+        <h3>{isNew} - {selectedGroupId}</h3>
       </section>
     </>
   );

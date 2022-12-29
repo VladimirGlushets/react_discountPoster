@@ -217,8 +217,8 @@ function PreferenceDetails({ title, isNew }) {
     setSaveVisible(false);
   };
 
-  const loadingDom = <h3>Loading...</h3>;
-  const savingDom = <h3>Saving...</h3>;
+  const loadingDom = <h3 className="loading">Loading...</h3>;
+  const savingDom = <h3 className="loading">Saving...</h3>;
   const saveButtonDom = saveVisible ? (
     isSaving ? (
       savingDom

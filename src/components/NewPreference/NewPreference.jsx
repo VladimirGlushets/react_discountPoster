@@ -62,7 +62,11 @@ function NewPreference({ title }) {
     <>
       <div className="new_category">
         <h1>{title}</h1>
-        {isAllGroupsLoading ? <h3>Loading...</h3> : allGroupsDom}
+        {isAllGroupsLoading ? (
+          <h3 className="loading">Loading...</h3>
+        ) : (
+          allGroupsDom
+        )}
       </div>
     </>
   );

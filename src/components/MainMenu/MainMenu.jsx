@@ -72,7 +72,7 @@ function MainMenu({ title }) {
       <div className="mainmenu-item">
         <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
       </div>
-      <h3>Loading...</h3>
+      <h3 className="loading">Loading...</h3>
     </>
   );
 
@@ -81,7 +81,7 @@ function MainMenu({ title }) {
       <div className="mainmenu-item">
         <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
       </div>
-      <h3>Data loading error.</h3>
+      <h3 className="loading">Data loading error.</h3>
     </>
   );
 

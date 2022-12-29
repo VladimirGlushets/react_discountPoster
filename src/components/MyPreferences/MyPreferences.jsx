@@ -86,7 +86,7 @@ function MyPreferences({ title }) {
     <div className="my_categories">
       <h1>{title}</h1>
       {isPrefLoading ? (
-        <h2>Loading...</h2>
+        <h2 className="loading">Loading...</h2>
       ) : myPreferencies.length ? (
         myPreferencies.map((pref, index) => {
           return (

@@ -96,9 +96,9 @@ function NewPreferenceGroup({ title }) {
           {group.displayName}
         </h2>
         {isAllCategoriesLoading ? (
-          <h3>Loading...</h3>
+          <h3 className="loading">Loading...</h3>
         ) : isCategorySaving ? (
-          <h3>Saving...</h3>
+          <h3 className="loading">Saving...</h3>
         ) : (
           categoriesDom
         )}

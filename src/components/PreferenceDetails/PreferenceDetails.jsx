@@ -59,7 +59,7 @@ function PreferenceDetails({ title }) {
   const backButtonClickedHandler = () => {
     if(isNew === "true"){
       navigate("/newcategory/" + selectedGroupId);
-    }else{
+    }else{ 
       navigate("/mycategories");
     }    
   };
@@ -257,6 +257,7 @@ function PreferenceDetails({ title }) {
           <></>
         )}
         {saveButtonDom}
+        <Button title={"back"} onClick={backButtonClickedHandler}/>
       </section>
     </>
   );

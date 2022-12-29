@@ -44,13 +44,12 @@ function NewPreferenceGroup({ title }) {
       let myFilters = await getMyPreferencies(user);
       categoriesResponse.categories.forEach((cat) => {
         myFilters.every((f) => {
-          if(f.categoryId===cat.categoryId){
+          if (f.categoryId === cat.categoryId) {
             cat.icon = existLabel;
             return false;
           }
           return true;
         });
-        
       });
 
       setIsAllCategoriesLoading(false);
@@ -72,12 +71,12 @@ function NewPreferenceGroup({ title }) {
   };
 
   const onCategoryClick = async (categoryId) => {
-    setIsCategorySaving(true);
     let existingPrefResponse = await getPreference(userId, categoryId);
     if (existingPrefResponse.myPreference == null) {
+      setIsCategorySaving(true);
       await upsertPreference(userId, { categoryId: categoryId });
+      setIsCategorySaving(false);
     }
-    setIsCategorySaving(false);
 
     navigate("/newcategory/" + groupId + "/" + categoryId);
   };

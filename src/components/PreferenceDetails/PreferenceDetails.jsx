@@ -26,6 +26,8 @@ function PreferenceDetails({ title }) {
 
   useEffect(() => {
     tg.ready();
+    tg.BackButton.isVisible = true;
+    tg.BackButton.show();
     tg.onEvent("backButtonClicked", backButtonClickedHandler);
 
     let user = null;

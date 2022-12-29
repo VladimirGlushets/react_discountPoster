@@ -42,7 +42,7 @@ function PreferenceDetails({ title, isNew }) {
       setPrefLoading(true);
       let prefResponse = await getPreference(user, categoryId);
       setPrefLoading(false);
-      
+
       setInitPreference(prefResponse.myPreference);
       setPreferenceDetails({ ...prefResponse.myPreference });
       setSelectedGroupId(prefResponse.groupId);
@@ -59,15 +59,15 @@ function PreferenceDetails({ title, isNew }) {
   const backButtonClickedHandler = () => {
     console.log(isNew);
 
-    if(isNew === true){      
+    if (isNew === true) {
       console.log("New");
       const groupId = selectedGroupId;
       console.log(groupId);
       navigate("/newcategory/" + groupId);
-    }else{ 
+    } else {
       console.log("Not new");
       navigate("/mycategories");
-    }    
+    }
   };
 
   const onPrefChange = (pref) => {
@@ -275,6 +275,11 @@ function PreferenceDetails({ title, isNew }) {
           : !preferenceDetails
           ? "NoPreference"
           : prefDetailsDom}
+        {isNew === true ? (
+          <Button title={"Пропустить"} onClick={backButtonClickedHandler} />
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

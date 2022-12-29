@@ -48,10 +48,12 @@ function MyPreferences({ title }) {
   const refreshMyFilters = async (userId) => {
     setIsPrefLoading(true);
     let jsonFilters = await getMyPreferencies(userId);
+
     setIsPrefLoading(false);
 
     if (jsonFilters.length) {
-      setMyPreferencies(jsonFilters);
+      let sorted = jsonFilters.sort((a, b) => (a.categoryName > b.categoryName) ? 1 : -1)
+      setMyPreferencies(sorted);
     }
   };
 

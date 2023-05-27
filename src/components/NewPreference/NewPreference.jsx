@@ -8,7 +8,13 @@ const { getAllGroups } = require("../../data/data");
 const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
 
-function NewPreference({ title }) {
+function NewPreference({ title, locale }) {
+  console.log(locale);
+
+  if(!title){
+    title = locale.newPreference.title;
+  }
+
   const navigate = useNavigate();
 
   const [userId, setUserId] = useState();
@@ -66,14 +72,14 @@ function NewPreference({ title }) {
             />
           );
         })
-      : "No supported categories.";
+      : locale.newPreference.noSupportedCategories;
 
   return (
     <>
       <div className="new_category">
         <h1>{title}</h1>
         {isAllGroupsLoading ? (
-          <h3 className="loading">Loading...</h3>
+          <h3 className="loading">{locale.newPreference.loading}</h3>
         ) : (
           allGroupsDom
         )}

@@ -9,7 +9,7 @@ const { upsertPreference, getPreference } = require("../../data/data");
 const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
 
-function PreferenceDetails({ title, isNew }) {
+function PreferenceDetails({ locale, isNew }) {
   const navigate = useNavigate();
   let { categoryId } = useParams();
 
@@ -89,13 +89,13 @@ function PreferenceDetails({ title, isNew }) {
     if (e.target.value) {
       value = parseInt(e.target.value);
       if (isNaN(value)) {
-        setValidationError("Минимальная скидка должна быть числом");
+        setValidationError(locale.preferenceDetails.minDiscountIntError);
         setSaveDisabled(true);
         return;
       }
 
       if (value > 100) {
-        setValidationError("Минимальная скидка больше 100%");
+        setValidationError(locale.preferenceDetails.minDiscountPersentError);
         setSaveDisabled(true);
         return;
       }
@@ -118,13 +118,13 @@ function PreferenceDetails({ title, isNew }) {
     if (e.target.value) {
       value = parseFloat(e.target.value);
       if (isNaN(value)) {
-        setValidationError("Минимальный рейтинг должен быть числом");
+        setValidationError(locale.preferenceDetails.minRatingIntError);
         setSaveDisabled(true);
         return;
       }
 
       if (value > 5) {
-        setValidationError("Минимальный рейтинг от 0 до 5");
+        setValidationError(locale.preferenceDetails.minRatingArrangeError);
         setSaveDisabled(true);
         return;
       }
@@ -148,7 +148,7 @@ function PreferenceDetails({ title, isNew }) {
     if (e.target.value) {
       value = parseFloat(e.target.value);
       if (isNaN(value)) {
-        setValidationError("Цена От должна быть числом");
+        setValidationError(locale.preferenceDetails.priceFromIntError);
         setSaveDisabled(true);
         return;
       }
@@ -157,7 +157,7 @@ function PreferenceDetails({ title, isNew }) {
         preferenceDetails.priceTo != null &&
         value >= preferenceDetails.priceTo
       ) {
-        setValidationError("Цена От должна быть меньше цены До");
+        setValidationError(locale.preferenceDetails.priceFromLessThanToError);
         setSaveDisabled(true);
         return;
       }
@@ -182,13 +182,13 @@ function PreferenceDetails({ title, isNew }) {
     if (e.target.value) {
       value = parseFloat(e.target.value);
       if (isNaN(value)) {
-        setValidationError("Цена до должна быть числом");
+        setValidationError(locale.preferenceDetails.priceToIntError);
         setSaveDisabled(true);
         return;
       }
 
       if (value <= preferenceDetails.priceFrom) {
-        setValidationError("Цена От должна быть меньше цены До");
+        setValidationError(locale.preferenceDetails.priceFromLessThanToError);
         setSaveDisabled(true);
         return;
       }
@@ -223,24 +223,24 @@ function PreferenceDetails({ title, isNew }) {
     await upsertPreference(userId, preferenceDetails);
     setIsSaving(false);
 
-    showPopup("Изменения сохранены", "Saved");
+    showPopup(locale.preferenceDetails.onSavePopupTitle, locale.preferenceDetails.onSavePopupMessage);
     setSaveVisible(false);
   };
 
-  const loadingDom = <h3 className="loading">Loading...</h3>;
-  const savingDom = <h3 className="loading">Saving...</h3>;
+  const loadingDom = <h3 className="loading">{locale.preferenceDetails.loading}</h3>;
+  const savingDom = <h3 className="loading">{locale.preferenceDetails.saving}</h3>;
   const saveButtonDom = saveVisible ? (
     isSaving ? (
       savingDom
     ) : (
       <Button
-        title={"Save changes"}
+        title={locale.preferenceDetails.onSaveBtnTitle}
         onClick={onSave}
         isDisabled={saveDisabled}
       />
     )
   ) : skipVisible ? (
-    <Button title={"Пропустить"} onClick={backButtonClickedHandler} />
+    <Button title={locale.preferenceDetails.skipBtnTitle} onClick={backButtonClickedHandler} />
   ) : (
     <></>
   );
@@ -250,22 +250,22 @@ function PreferenceDetails({ title, isNew }) {
       <h1>{preferenceDetails.categoryName}</h1>
       <section>
         <DetailsItem
-          label={"Минимальная скидка, %"}
+          label={locale.preferenceDetails.minDiscountLabel}
           value={preferenceDetails.minDiscount}
           onChange={minDiscountOnChange}
         />
         <DetailsItem
-          label={"Минимальный рейтинг, от 0 до 5"}
+          label={locale.preferenceDetails.minRatingLabel}
           value={preferenceDetails.minRating}
           onChange={minRatingOnChange}
         />
         <DetailsItem
-          label={"Цена От $"}
+          label={locale.preferenceDetails.priceFromLabel}
           value={preferenceDetails.priceFrom}
           onChange={priceFromOnChange}
         />
         <DetailsItem
-          label={"Цена До $"}
+          label={locale.preferenceDetails.priceToLabel}
           value={preferenceDetails.priceTo}
           onChange={priceToOnChange}
         />
@@ -285,7 +285,7 @@ function PreferenceDetails({ title, isNew }) {
         {prefLoading
           ? loadingDom
           : !preferenceDetails
-          ? "NoPreference"
+          ? locale.preferenceDetails.noPreference
           : prefDetailsDom}
       </div>
     </>

@@ -14,7 +14,7 @@ const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
 const existLabel = "✅";
 
-function NewPreferenceGroup({ title }) {
+function NewPreferenceGroup({ locale }) {
   const navigate = useNavigate();
   let { groupId } = useParams();
   const [group, setGroup] = useState({});
@@ -110,9 +110,9 @@ function NewPreferenceGroup({ title }) {
           {group.displayName}
         </h2>
         {isAllCategoriesLoading ? (
-          <h3 className="loading">Loading...</h3>
+          <h3 className="loading">{locale.newPreferenceGroup.loading}</h3>
         ) : isCategorySaving ? (
-          <h3 className="loading">Saving...</h3>
+          <h3 className="loading">{locale.newPreferenceGroup.saving}</h3>
         ) : (
           categoriesDom
         )}

@@ -9,8 +9,8 @@ const { getMyPreferencies } = require("../../data/data");
 const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
 
-function MainMenu({ title, locale }) {
-  
+function MainMenu({ locale }) {
+  console.log(locale);
   const navigate = useNavigate();
 
   const [myCategories, setMyCategories] = useState([]);
@@ -56,12 +56,12 @@ function MainMenu({ title, locale }) {
   const mainMenuDom = (
     <>
       <div className="mainmenu-item">
-        <Button title={locale.addCategory} onClick={newCategoryOnClick} />
+        <Button title={locale.mainMenu.addCategory} onClick={newCategoryOnClick} />
       </div>
 
       <div className="mainmenu-item">
         <Button
-          title={locale.myCategories + " (" + myCategories.length + ")"}
+          title={locale.mainMenu.myCategories + " (" + myCategories.length + ")"}
           onClick={myCategoriesOnClick}
         />
       </div>
@@ -71,24 +71,24 @@ function MainMenu({ title, locale }) {
   const isLoadingDom = (
     <>
       <div className="mainmenu-item">
-        <Button title={locale.addCategory} onClick={newCategoryOnClick} />
+        <Button title={locale.mainMenu.addCategory} onClick={newCategoryOnClick} />
       </div>
-      <h3 className="loading">{locale.loading}</h3>
+      <h3 className="loading">{locale.mainMenu.loading}</h3>
     </>
   );
 
   const isMyPrefLoadingErrorDom = (
     <>
       <div className="mainmenu-item">
-        <Button title={locale.addCategory} onClick={newCategoryOnClick} />
+        <Button title={locale.mainMenu.addCategory} onClick={newCategoryOnClick} />
       </div>
-      <h3 className="loading">{locale.dataLoadingError}</h3>
+      <h3 className="loading">{locale.mainMenu.dataLoadingError}</h3>
     </>
   );
 
   return (
     <div className="mainmenu">
-      <h1>{title}</h1>
+      <h1>{locale.mainMenu.title}</h1>
       {isMyPrefLoading ? (
         isLoadingDom
       ) : isMyPrefLoadingError ? (
@@ -96,7 +96,7 @@ function MainMenu({ title, locale }) {
       ) : myCategories && myCategories.length ? (
         mainMenuDom
       ) : (
-        <NewPreference title={locale.newCategory} />
+        <NewPreference title={locale.mainMenu.newCategory} locale={locale} />
       )}
     </div>
   );

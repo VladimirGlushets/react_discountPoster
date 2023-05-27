@@ -8,7 +8,7 @@ const { getMyPreferencies, deletePreference } = require("../../data/data");
 const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
 
-function MyPreferences({ title }) {
+function MyPreferences({ locale }) {
   const navigate = useNavigate();
 
   const [userId, setUserId] = useState();
@@ -59,7 +59,7 @@ function MyPreferences({ title }) {
 
   const onDelete = async (filter) => {
     if (tg.initDataUnsafe.user) {
-      tg.showConfirm("Are you sure?", (isok) =>
+      tg.showConfirm(locale.myPreferences.onDeleteConfirmation, (isok) =>
         deleteFilterHandler(isok, filter)
       );
     } else {
@@ -86,9 +86,9 @@ function MyPreferences({ title }) {
 
   return (
     <div className="my_categories">
-      <h1>{title}</h1>
+      <h1>{locale.myPreferences.title}</h1>
       {isPrefLoading ? (
-        <h2 className="loading">Loading...</h2>
+        <h2 className="loading">{locale.myPreferences.loading}</h2>
       ) : myPreferencies.length ? (
         myPreferencies.map((pref, index) => {
           return (

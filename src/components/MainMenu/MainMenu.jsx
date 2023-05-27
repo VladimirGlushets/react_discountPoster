@@ -9,7 +9,8 @@ const { getMyPreferencies } = require("../../data/data");
 const tg = window.Telegram.WebApp;
 const defaultUserId = 558969327;
 
-function MainMenu({ title }) {
+function MainMenu({ title, locale }) {
+  
   const navigate = useNavigate();
 
   const [myCategories, setMyCategories] = useState([]);
@@ -55,12 +56,12 @@ function MainMenu({ title }) {
   const mainMenuDom = (
     <>
       <div className="mainmenu-item">
-        <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
+        <Button title={locale.addCategory} onClick={newCategoryOnClick} />
       </div>
 
       <div className="mainmenu-item">
         <Button
-          title={"Мои категории (" + myCategories.length + ")"}
+          title={locale.myCategories + " (" + myCategories.length + ")"}
           onClick={myCategoriesOnClick}
         />
       </div>
@@ -70,18 +71,18 @@ function MainMenu({ title }) {
   const isLoadingDom = (
     <>
       <div className="mainmenu-item">
-        <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
+        <Button title={locale.addCategory} onClick={newCategoryOnClick} />
       </div>
-      <h3 className="loading">Loading...</h3>
+      <h3 className="loading">{locale.loading}</h3>
     </>
   );
 
   const isMyPrefLoadingErrorDom = (
     <>
       <div className="mainmenu-item">
-        <Button title={"Добавить категорию"} onClick={newCategoryOnClick} />
+        <Button title={locale.addCategory} onClick={newCategoryOnClick} />
       </div>
-      <h3 className="loading">Data loading error.</h3>
+      <h3 className="loading">{locale.dataLoadingError}</h3>
     </>
   );
 
@@ -95,7 +96,7 @@ function MainMenu({ title }) {
       ) : myCategories && myCategories.length ? (
         mainMenuDom
       ) : (
-        <NewPreference title="New category" />
+        <NewPreference title={locale.newCategory} />
       )}
     </div>
   );

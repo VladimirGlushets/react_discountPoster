@@ -78,8 +78,8 @@ export async function upsertPreference(userId, data) {
 // public string DisplayName { get; set; }
 // public string Icon { get; set; }
 // public int Order { get; set; }
-export async function getAllGroups() {
-  let url = baseUrl + "/api/Groups";
+export async function getAllGroups(userId) {
+  let url = baseUrl + "/api/Groups/" + userId;
 
   try {    
     const response = await fetch(url, {
@@ -94,13 +94,29 @@ export async function getAllGroups() {
   }
 }
 
-export async function getAllCategoriesForGroup(groupId) {
-  let url = baseUrl + "/api/Groups/" + groupId;
+export async function getAllCategoriesForGroup(userId, groupId) {
+  let url = baseUrl + "/api/Groups/" + userId + "/" + groupId;
 
   try {    
     const response = await fetch(url, {
       headers: {
         "x-functions-key": process.env.REACT_APP_GROUPS_API_KEY
+      },
+    });
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function getWebUiLocalization(userId) {
+  let url = baseUrl + "/api/WebUiLocalization/" + userId;
+
+  try {    
+    const response = await fetch(url, {
+      headers: {
+        "x-functions-key": process.env.REACT_APP_WEBUILOCALIZATION_API_KEY
       },
     });
     return await response.json();

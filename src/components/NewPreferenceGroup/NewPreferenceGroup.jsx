@@ -39,7 +39,7 @@ function NewPreferenceGroup({ title }) {
 
     async function fetchData() {
       setIsAllCategoriesLoading(true);
-      let categoriesResponse = await getAllCategoriesForGroup(groupId);
+      let categoriesResponse = await getAllCategoriesForGroup(user, groupId);
 
       let myFilters = await getMyPreferencies(user);
       categoriesResponse.categories.forEach((cat) => {
